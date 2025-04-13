@@ -1,0 +1,19 @@
+{
+    "type": "str_literal",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "%1 %2",
+    "args0": [
+      {
+        "type": "field_input",
+        "name": "Value",
+        "text": "Hello world"
+      },
+      {
+        "type": "input_dummy",
+        "name": "_"
+      }
+    ],
+    "output": null,
+    "colour": 120
+}  

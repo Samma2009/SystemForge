@@ -1,0 +1,33 @@
+{
+    "type": "SetPixel",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "Set pixel %1 X %2 Y %3 Color %4",
+    "args0": [
+    {
+        "type": "input_dummy",
+        "name": "DUMMY"
+    },
+    {
+        "type": "input_value",
+        "name": "X",
+        "align": "RIGHT",
+        "check": "Number"
+    },
+    {
+        "type": "input_value",
+        "name": "Y",
+        "align": "RIGHT",
+        "check": "Number"
+    },
+    {
+        "type": "input_value",
+        "name": "Color",
+        "align": "RIGHT"
+        
+    }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 225
+}

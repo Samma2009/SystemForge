@@ -1,0 +1,24 @@
+{
+    "type": "get_pixel",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "get pixel color at %1 X %2 Y %3",
+    "args0": [
+    {
+        "type": "input_dummy",
+        "name": "_"
+    },
+    {
+        "type": "input_value",
+        "name": "X",
+        "align": "RIGHT"
+    },
+    {
+        "type": "input_value",
+        "name": "Y",
+        "align": "RIGHT"
+    }
+    ],
+    "output": "Colour",
+    "colour": 225
+}

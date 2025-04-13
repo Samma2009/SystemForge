@@ -1,0 +1,19 @@
+{
+    "type": "num_literal",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "%1 %2",
+    "args0": [
+      {
+        "type": "field_number",
+        "name": "NAME",
+        "value": 0
+      },
+      {
+        "type": "input_dummy",
+        "name": "_"
+      }
+    ],
+    "output": "Number",
+    "colour": 225
+}  

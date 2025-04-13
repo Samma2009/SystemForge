@@ -1,0 +1,14 @@
+{
+    "type": "framebuffer_h",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "height %1",
+    "args0": [
+    {
+        "type": "input_dummy",
+        "name": "_"
+    }
+    ],
+    "output": null,
+    "colour": 225
+}

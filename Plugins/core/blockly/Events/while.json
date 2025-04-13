@@ -1,0 +1,19 @@
+{
+    "type": "while",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "while %1 %2",
+    "args0": [
+    {
+        "type": "input_value",
+        "name": "condition"
+    },
+    {
+        "type": "input_statement",
+        "name": "code"
+    }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60
+}

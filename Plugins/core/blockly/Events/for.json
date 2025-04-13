@@ -1,0 +1,31 @@
+{
+    "type": "for",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "for %1 = %2 to %3 %4",
+    "args0": [
+    {
+        "type": "field_variable",
+        "name": "var",
+        "variable": "",
+        "variableTypes": ["int"],
+        "defaultType": "int"
+    },
+    {
+        "type": "field_number",
+        "name": "start",
+        "value": 0
+    },
+    {
+        "type": "input_value",
+        "name": "condition"
+    },
+    {
+        "type": "input_statement",
+        "name": "code"
+    }
+    ],
+    "previousStatement": null,
+    "nextStatement": null,
+    "colour": 60
+}

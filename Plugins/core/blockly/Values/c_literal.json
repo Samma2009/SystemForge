@@ -1,0 +1,20 @@
+{
+  "type": "c_literal",
+  "tooltip": "",
+  "helpUrl": "",
+  "message0": "C literal  %1 %2",
+  "args0": [
+    {
+      "type": "field_input",
+      "name": "Value",
+      "text": ""
+    },
+    {
+      "type": "input_dummy",
+      "name": "_"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": 0
+}

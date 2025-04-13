@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet"
+          data-name="vs/editor/editor.main"
+          href="./min/vs/editor/editor.main.css" />
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+
+        #container {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="container"></div>
+    <script src="./min/vs/loader.js"></script>
+    <script>
+        document.addEventListener('keydown', (e) => {
+            e = e || window.event;
+            if (e.keyCode == 116) {
+                e.preventDefault();
+            }
+        });
+
+        require.config({ paths: { 'vs': './min/vs' } });
+        require(['vs/editor/editor.main'], function () {
+            var editor = monaco.editor.create(document.getElementById('container'), {
+                value: '',
+                language: 'c',
+                theme: 'vs-dark'
+            });
+
+            window.addEventListener('resize', function () {
+                editor.layout();
+            });
+
+            window.setEditorText = function (text) {
+                editor.setValue(text);
+            }
+            window.getEditorText = function () {
+                return editor.getValue();
+            }
+        });
+    </script>
+</body>
+</html>

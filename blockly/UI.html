@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Blockly Demo</title>
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="https://unpkg.com/@blockly/field-colour-hsv-sliders"></script>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #blocklyDiv {
+            height: 100%;
+            width: 100%;
+        }
+
+        #createVariableBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body style="background-color: rgb(30,30,30)">
+    <div id="blocklyDiv"></div>
+    <xml id="toolbox" style="display: none">
+        $(Category_PlaceHolder)$
+        <separator></separator>
+        <category name="Variables">
+            <button text="Create string variable" callbackKey="vrb_create_str"></button>
+            <block type="variables_set_char*"></block>
+            <block type="variables_get_char*"></block>
+            <button text="Create integer variable" callbackKey="vrb_create_int"></button>
+            <block type="variables_set_int"></block>
+            <block type="variables_get_int"></block>
+            <button text="Create float variable" callbackKey="vrb_create_flt"></button>
+            <block type="variables_set_float"></block>
+            <block type="variables_get_float"></block>
+        </category>
+        <category name="Functions" custom="PROCEDURE">
+    </xml>
+    <script>
+        document.addEventListener('keydown', (e) => {
+            e = e || window.event;
+            if (e.keyCode == 116) {
+                e.preventDefault();
+            }
+        });
+
+        var Dark = Blockly.Theme.defineTheme('Dark', {
+            base: Blockly.Themes.Classic,
+            componentStyles: {
+                workspaceBackgroundColour: 'rgb(30,30,30)',
+                toolboxBackgroundColour: 'blackBackground',
+                toolboxForegroundColour: '#fff',
+                flyoutBackgroundColour: '#252526',
+                flyoutForegroundColour: '#ccc',
+                flyoutOpacity: 1,
+                scrollbarColour: '#797979',
+                insertionMarkerColour: '#fff',
+                insertionMarkerOpacity: 0.3,
+                scrollbarOpacity: 0.4,
+                cursorColour: '#d0d0d0',
+                blackBackground: '#333',
+            },
+        });
+
+        var workspace = Blockly.inject('blocklyDiv', {
+            toolbox: document.getElementById('toolbox'),
+            theme: Dark
+        });
+
+        const Gen = new Blockly.Generator('C');
+        Gen.init = function (wsp) {
+            if (!this.nameDB_) {
+                this.nameDB_ = new Blockly.Names(this.RESERVED_WORDS_);
+            } else {
+                this.nameDB_.reset();
+            }
+
+            this.nameDB_.setVariableMap(wsp.getVariableMap());
+        };
+        Gen.init(workspace);
+
+        function addBlockToBlockly(jsonBlock, codeFunction) {
+            if (!(jsonBlock.hasOwnProperty('premade') && jsonBlock.premade == "true"))
+                Blockly.defineBlocksWithJsonArray([jsonBlock]);
+            Gen.forBlock[jsonBlock.type] = codeFunction;
+        }
+
+        function saveWorkspace() {
+            return Blockly.serialization.workspaces.save(workspace);
+        }
+
+        function loadWorkspace(xmlText) {
+            Blockly.serialization.workspaces.load(xmlText, workspace);
+        }
+
+        function buildWorkspace() {
+            let str = "";
+            workspace.getAllVariables().forEach((va) => {
+                if (va.type == "int" | va.type == "char*" | va.type == "float")
+                    str += va.type + " " + va.type[0]+va.name + ";\n";
+            })
+            str += Gen.workspaceToCode(workspace)
+            return str;
+        }
+
+        workspace.registerButtonCallback("vrb_create_str", () => Blockly.Variables.createVariableButtonHandler(workspace, null, 'char*'));
+        workspace.registerButtonCallback("vrb_create_int", () => Blockly.Variables.createVariableButtonHandler(workspace, null, 'int'));
+        workspace.registerButtonCallback("vrb_create_flt", () => Blockly.Variables.createVariableButtonHandler(workspace, null, 'float'));
+
+        function vget(block) {
+            var varr = workspace.getVariableById(block.getFieldValue('VAR'));
+            var variable = varr.type[0] + varr.name;
+            return [variable, javascript.Order.ATOMIC];
+        }
+        function vset(block) {
+            var varr = workspace.getVariableById(block.getFieldValue('VAR'));
+            var variable = varr.type[0]+varr.name;
+            var value = Gen.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ASSIGNMENT) || null;
+            return variable + ' = ' + value + ';\n';
+        }
+
+        addBlockToBlockly({
+            "type": "variables_set_int",
+            "message0": "%{BKY_VARIABLES_SET}",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["int"],
+                    "defaultType": "int"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 225
+        }, vset);
+
+        addBlockToBlockly({
+            "type": "variables_get_int",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["int"],
+                    "defaultType": "int"
+                }
+            ],
+            "output": null,
+            "colour": 225
+        }, vget);
+
+        addBlockToBlockly({
+            "type": "variables_set_float",
+            "message0": "%{BKY_VARIABLES_SET}",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["float"],
+                    "defaultType": "float"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 105
+        }, vset);
+
+        addBlockToBlockly({
+            "type": "variables_get_float",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["float"],
+                    "defaultType": "float"
+                }
+            ],
+            "output": null,
+            "colour": 105
+        }, vget);
+
+        addBlockToBlockly({
+            "type": "variables_set_char*",
+            "message0": "%{BKY_VARIABLES_SET}",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["char*"],
+                    "defaultType": "char*"
+                },
+                {
+                    "type": "input_value",
+                    "name": "VALUE"
+                }
+            ],
+            "previousStatement": null,
+            "nextStatement": null,
+            "colour": 0
+        }, vset);
+
+        addBlockToBlockly({
+            "type": "variables_get_char*",
+            "message0": "%1",
+            "args0": [
+                {
+                    "type": "field_variable",
+                    "name": "VAR",
+                    "variable": "%{BKY_VARIABLES_DEFAULT_NAME}",
+                    "variableTypes": ["char*"],
+                    "defaultType": "char*"
+                }
+            ],
+            "output": null,
+            "colour": 0
+        }, vget);
+
+    </script>
+</body>
+</html>

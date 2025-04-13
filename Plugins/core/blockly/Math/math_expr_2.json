@@ -1,0 +1,49 @@
+{
+    "type": "math_expr_2",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "%1 %2 %3 %4",
+    "args0": [
+      {
+        "type": "input_value",
+        "name": "op1"
+      },
+      {
+        "type": "field_dropdown",
+        "name": "op",
+        "options": [
+          [
+            "+",
+            "+"
+          ],
+          [
+            "-",
+            "-"
+          ],
+          [
+            "*",
+            "*"
+          ],
+          [
+            "/",
+            "/"
+          ],
+          [
+            "%",
+            "%"
+          ]
+        ]
+      },
+      {
+        "type": "input_dummy",
+        "name": "_"
+      },
+      {
+        "type": "input_value",
+        "name": "op2"
+      }
+    ],
+    "output": "Number",
+    "colour": 120,
+    "inputsInline": true
+}  

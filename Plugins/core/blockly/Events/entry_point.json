@@ -1,0 +1,17 @@
+{
+    "type": "entry_point",
+    "tooltip": "",
+    "helpUrl": "",
+    "message0": "Entry point %1 %2",
+    "args0": [
+      {
+        "type": "input_dummy",
+        "name": "_"
+      },
+      {
+        "type": "input_statement",
+        "name": "code"
+      }
+    ],
+    "colour": 60
+}  
